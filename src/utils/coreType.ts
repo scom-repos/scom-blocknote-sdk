@@ -59,8 +59,8 @@ export type SlashMenuItem = {
   name: string;
   execute: (editor: any) => void;
   aliases?: string[];
-  group: string;
-  icon: any;
+  group?: string;
+  icon?: any;
   hint?: string;
   shortcut?: string;
 };

@@ -1,12 +1,12 @@
 {
     "name": "@scom/scom-blocknote-sdk",
     "version": "0.1.0",
-    "main": "lib/index.js",
-    "plugin": "dist/index.js",
+    "main": "dist/index.js",
+    "plugin": "dist",
     "pluginTypes": "pluginTypes/index.d.ts",
     "types": "pluginTypes/index.d.ts",
     "dependencies": {
-        "@ijstech/components": "^0.1.35"
+        "@ijstech/components": "^0.1.115"
     },
     "devDependencies": {
         "@ijstech/compiler": "^0.1.35",

@@ -50,8 +50,8 @@ declare module "@scom/scom-blocknote-sdk/utils/coreType.ts" {
         name: string;
         execute: (editor: any) => void;
         aliases?: string[];
-        group: string;
-        icon: any;
+        group?: string;
+        icon?: any;
         hint?: string;
         shortcut?: string;
     };
@@ -77,7 +77,7 @@ declare module "@scom/scom-blocknote-sdk/utils/coreType.ts" {
 }
 /// <amd-module name="@scom/scom-blocknote-sdk/utils/interfaces.ts" />
 declare module "@scom/scom-blocknote-sdk/utils/interfaces.ts" {
-    import { Module } from "@ijstech/components";
+    import { IconName, Module } from "@ijstech/components";
     import { Block, BlockNoteEditor, PartialBlock, SlashMenuItem } from "@scom/scom-blocknote-sdk/utils/coreType.ts";
     type executeFnType = (editor: BlockNoteEditor, block: PartialBlock) => void;
     type callbackFnType = (module: Module, block: Block) => void;
@@ -87,10 +87,49 @@ declare module "@scom/scom-blocknote-sdk/utils/interfaces.ts" {
             slashItem: SlashMenuItem;
         };
     }
-    export { BlockNoteSpecs, executeFnType, callbackFnType };
+    type TextAlignmentType = "left" | "center" | "right" | "justify";
+    type CustomFormattingToolbarState = {
+        bold: boolean;
+        italic: boolean;
+        underline: boolean;
+        textAlignment: TextAlignmentType;
+        textColor: string;
+        backgroundColor: string;
+        referencePos: any;
+        show: boolean;
+    };
+    type CustomHyperlinkToolbarState = {
+        text: string;
+        url: string;
+        referencePos: any;
+        show: boolean;
+    };
+    type CustomSideMenuState = {
+        referencePos: any;
+        show: boolean;
+        block: any;
+    };
+    type CustomSlashMenuState = {
+        referencePos: any;
+        show: boolean;
+        filteredItems: any[];
+        itemCallback: any;
+        keyboardHoveredItemIndex: number;
+    };
+    type IBlockTypeItem = {
+        name: string;
+        type: string;
+        props?: Record<string, boolean | number | string>;
+        icon?: {
+            name: IconName;
+        };
+        isSelected: (block: any) => boolean;
+    };
+    export { BlockNoteSpecs, executeFnType, callbackFnType, CustomFormattingToolbarState, CustomHyperlinkToolbarState, CustomSideMenuState, CustomSlashMenuState, TextAlignmentType, IBlockTypeItem };
 }
 /// <amd-module name="@scom/scom-blocknote-sdk/utils/config.ts" />
 declare module "@scom/scom-blocknote-sdk/utils/config.ts" {
+    import { IBlockTypeItem } from "@scom/scom-blocknote-sdk/utils/interfaces.ts";
     export const CustomBlockTypes: string[];
     export const MediaBlockTypes: string[];
     export const WidgetMapping: {
@@ -100,6 +139,7 @@ declare module "@scom/scom-blocknote-sdk/utils/config.ts" {
         };
     };
     export const WIDGET_URL = "https://widget.noto.fan";
+    export const defaultBlockTypeItems: IBlockTypeItem[];
 }
 /// <amd-module name="@scom/scom-blocknote-sdk/utils/helper.ts" />
 declare module "@scom/scom-blocknote-sdk/utils/helper.ts" {
@@ -110,6 +150,185 @@ declare module "@scom/scom-blocknote-sdk/utils/helper.ts" {
     export const execCustomBLock: (editor: BlockNoteEditor, block: PartialBlock) => void;
     export function getFileType(ext: string): string;
     export function getBlockFromExtension(url: string): Promise<any>;
+    export const isAppleOS: () => boolean;
+    export function formatKeyboardShortcut(shortcut: string): string;
+    export function getExtraFields(): {
+        Heading: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Heading 2": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Heading 3": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Heading 4": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Heading 5": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Heading 6": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Numbered List": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        "Bullet List": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        Paragraph: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+            shortcut: string;
+        };
+        Image: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        'Image Widget': {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Video: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Swap: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Xchain: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Table: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Chart: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Tweet: {
+            group: string;
+            icon: {
+                image: {
+                    url: string;
+                    width: string;
+                    height: string;
+                    display: string;
+                };
+            };
+            hint: string;
+        };
+        File: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Staking: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        Voting: {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        "NFT Minter": {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        'Oswap NFT': {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+        'Code Block': {
+            group: string;
+            icon: {
+                name: string;
+            };
+            hint: string;
+        };
+    };
 }
 /// <amd-module name="@scom/scom-blocknote-sdk/utils/index.ts" />
 declare module "@scom/scom-blocknote-sdk/utils/index.ts" {
