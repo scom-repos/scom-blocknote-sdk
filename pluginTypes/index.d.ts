@@ -81,10 +81,15 @@ declare module "@scom/scom-blocknote-sdk/utils/interfaces.ts" {
     import { Block, BlockNoteEditor, PartialBlock, SlashMenuItem } from "@scom/scom-blocknote-sdk/utils/coreType.ts";
     type executeFnType = (editor: BlockNoteEditor, block: PartialBlock) => void;
     type callbackFnType = (module: Module, block: Block) => void;
+    interface IModuleData {
+        name: string;
+        localPath: string;
+    }
     interface BlockNoteSpecs {
         addBlock: (blocknote: any, executeFn: executeFnType, callbackFn?: callbackFnType) => {
             block: Block;
             slashItem: SlashMenuItem;
+            moduleData: IModuleData;
         };
     }
     type TextAlignmentType = "left" | "center" | "right" | "justify";
@@ -125,19 +130,12 @@ declare module "@scom/scom-blocknote-sdk/utils/interfaces.ts" {
         };
         isSelected: (block: any) => boolean;
     };
-    export { BlockNoteSpecs, executeFnType, callbackFnType, CustomFormattingToolbarState, CustomHyperlinkToolbarState, CustomSideMenuState, CustomSlashMenuState, TextAlignmentType, IBlockTypeItem };
+    export { BlockNoteSpecs, executeFnType, callbackFnType, IModuleData, CustomFormattingToolbarState, CustomHyperlinkToolbarState, CustomSideMenuState, CustomSlashMenuState, TextAlignmentType, IBlockTypeItem };
 }
 /// <amd-module name="@scom/scom-blocknote-sdk/utils/config.ts" />
 declare module "@scom/scom-blocknote-sdk/utils/config.ts" {
     import { IBlockTypeItem } from "@scom/scom-blocknote-sdk/utils/interfaces.ts";
-    export const CustomBlockTypes: string[];
-    export const MediaBlockTypes: string[];
-    export const WidgetMapping: {
-        [key: string]: {
-            name: string;
-            localPath: string;
-        };
-    };
+    export const BasicBlockTypes: string[];
     export const WIDGET_URL = "https://widget.noto.fan";
     export const defaultBlockTypeItems: IBlockTypeItem[];
 }
@@ -146,10 +144,11 @@ declare module "@scom/scom-blocknote-sdk/utils/helper.ts" {
     import { BlockNoteEditor, PartialBlock } from "@scom/scom-blocknote-sdk/utils/coreType.ts";
     export const parseStringToObject: (value: string) => any;
     export function parseUrl(href: string): any;
-    export const getWidgetEmbedUrl: (block: PartialBlock) => string;
+    export const getWidgetEmbedUrl: (block: PartialBlock, module: {
+        name: string;
+        localPath: string;
+    }) => string;
     export const execCustomBLock: (editor: BlockNoteEditor, block: PartialBlock) => void;
-    export function getFileType(ext: string): string;
-    export function getBlockFromExtension(url: string): Promise<any>;
     export const isAppleOS: () => boolean;
     export function formatKeyboardShortcut(shortcut: string): string;
     export function getExtraFields(): {
@@ -225,41 +224,6 @@ declare module "@scom/scom-blocknote-sdk/utils/helper.ts" {
             hint: string;
             shortcut: string;
         };
-        Image: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        'Image Widget': {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        Video: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        Swap: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        Xchain: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
         Table: {
             group: string;
             icon: {
@@ -267,61 +231,14 @@ declare module "@scom/scom-blocknote-sdk/utils/helper.ts" {
             };
             hint: string;
         };
-        Chart: {
+        'Code Block': {
             group: string;
             icon: {
                 name: string;
-            };
-            hint: string;
-        };
-        Tweet: {
-            group: string;
-            icon: {
-                image: {
-                    url: string;
-                    width: string;
-                    height: string;
-                    display: string;
-                };
             };
             hint: string;
         };
         File: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        Staking: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        Voting: {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        "NFT Minter": {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        'Oswap NFT': {
-            group: string;
-            icon: {
-                name: string;
-            };
-            hint: string;
-        };
-        'Code Block': {
             group: string;
             icon: {
                 name: string;
