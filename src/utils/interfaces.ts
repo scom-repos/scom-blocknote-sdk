@@ -3,9 +3,13 @@ import { Block, BlockNoteEditor, PartialBlock, SlashMenuItem } from "./coreType"
 
 type executeFnType = (editor: BlockNoteEditor, block: PartialBlock) => void;
 type callbackFnType = (module: Module, block: Block) => void;
+interface IModuleData {
+  name: string;
+  localPath: string;
+}
 
 interface BlockNoteSpecs {
-  addBlock: (blocknote: any, executeFn: executeFnType, callbackFn?: callbackFnType) => { block: Block, slashItem: SlashMenuItem };
+  addBlock: (blocknote: any, executeFn: executeFnType, callbackFn?: callbackFnType) => { block: Block, slashItem: SlashMenuItem, moduleData: IModuleData };
 }
 
 type TextAlignmentType = "left" | "center" | "right" | "justify";
@@ -58,6 +62,7 @@ export {
 	BlockNoteSpecs,
 	executeFnType,
 	callbackFnType,
+  IModuleData,
 	CustomFormattingToolbarState,
 	CustomHyperlinkToolbarState,
 	CustomSideMenuState,
